@@ -1,0 +1,47 @@
+#!/bin/bash
+
+# Limpiar la pantalla
+clear
+
+# Inicializar listas para resultados
+success=()
+fail=()
+
+# Colores
+BLUE='\033[0;34m'
+RED='\033[0;31m'
+NC='\033[0m' # Sin color
+
+# Comprobar si requirements.txt existe en la ruta actual
+if [[ ! -f "requirements.txt" ]]; then
+    echo "Error: No se encontró requirements.txt en la ruta actual."
+    exit 1
+fi
+
+# Leer cada línea del archivo requirements.txt
+while IFS= read -r package; do
+    # Intentar instalar el paquete
+    if sudo apt install -y "python3-$package"; then
+        echo "Instalado correctamente: python3-$package"
+        success+=("$package")
+    else
+        echo "Error al instalar: python3-$package"
+        fail+=("$package")
+    fi
+done < requirements.txt
+
+# Limpiar la pantalla antes de mostrar el resumen
+clear
+
+# Resumen de resultados
+echo -e "\nResumen de instalación:"
+echo "-------------------------"
+echo -e "${BLUE}Instalaciones exitosas:${NC}"
+for pkg in "${success[@]}"; do
+    echo "- python3-$pkg"
+done
+
+echo -e "\n${RED}Instalaciones fallidas:${NC}"
+for pkg in "${fail[@]}"; do
+    echo "- python3-$pkg"
+done
