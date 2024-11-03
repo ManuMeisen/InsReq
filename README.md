@@ -12,7 +12,7 @@ Install everything quick just by executing InsReq from the directory where "requ
 
 **Installation**
 ```
-wget https://raw.githubusercontent.com/ManuMeisen/InsReq/refs/heads/main/insreq && chmod +x insreq && sudo mv /bin
+wget https://raw.githubusercontent.com/ManuMeisen/InsReq/refs/heads/main/insreq && chmod +x insreq && sudo mv insreq /bin
 ```
 
 **Usage**
